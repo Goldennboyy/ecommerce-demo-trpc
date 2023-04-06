@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -55,6 +55,61 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    cart          Cart?
+}
+
+model Product {
+    id          String  @id @default(cuid())
+    name        String
+    price       Float
+    description String
+    quantity    Int
+    featured    Boolean @default(false)
+
+    categoryId String     @unique
+    category   Categories @relation(fields: [categoryId], references: [id])
+
+    stockId String @unique
+    stock   Stock  @relation(fields: [stockId], references: [id])
+
+    cartId String @unique
+    cart   Cart   @relation(fields: [cartId], references: [id])
+
+    // cart
+}
+
+model Stock {
+    id      String    @id @default(cuid())
+    noStock Int
+    product Product[]
+}
+
+enum Category {
+    Electronics
+    Toys
+    Grocery
+    Food
+    Movies
+    Musical
+    Health
+    Garden
+    Books
+    Clothes
+}
+
+model Categories {
+    id      String    @id @default(cuid())
+    cat     Category
+    product Product[]
+}
+
+model Cart {
+    id      String    @id @default(cuid())
+    amount  Int
+    Product Product[]
+
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {
