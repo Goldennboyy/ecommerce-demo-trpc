@@ -1,4 +1,3 @@
-"use client";
 import Head from "next/head";
 import React from "react";
 import Navbar from "./Navbar";
@@ -13,13 +12,15 @@ function Layout({ children, page }: rootLayoutProps) {
   return (
     <>
       <Head>
+        <meta name="description" content="" />
+        <link rel="icon" href="/favicon.ico" />
         <title>{page}</title>
       </Head>
-      <body>
+      <main>
         <Navbar />
-        <div className="container ">{children}</div>
+        <div>{children}</div>
         {/* <Footer /> */}
-      </body>
+      </main>
     </>
   );
 }

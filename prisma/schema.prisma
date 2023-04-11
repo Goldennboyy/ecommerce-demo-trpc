@@ -62,20 +62,20 @@ model Product {
     id          String  @id @default(cuid())
     name        String
     price       Float
+    image       String?
     description String
-    quantity    Int
     featured    Boolean @default(false)
 
-    categoryId String     @unique
-    category   Categories @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    categoryId String
+    category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
-    stockId String @unique
+    stockId String
     stock   Stock  @relation(fields: [stockId], references: [id], onDelete: Cascade)
 
-    cartId String @unique
-    cart   Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+    cartId String?
+    cart   Cart?   @relation(fields: [cartId], references: [id])
 
-    // cart
+    @@index([categoryId])
 }
 
 model Stock {
@@ -84,23 +84,22 @@ model Stock {
     product Product[]
 }
 
-enum Category {
+enum Categories {
     Electronics
     Toys
     Grocery
     Food
     Movies
-    Musical
     Health
     Garden
     Books
     Clothes
 }
 
-model Categories {
-    id      String    @id @default(cuid())
-    cat     Category
-    product Product[]
+model Category {
+    id       String     @id @default(cuid())
+    category Categories
+    product  Product[]
 }
 
 model Cart {
