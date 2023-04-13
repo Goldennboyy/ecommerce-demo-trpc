@@ -103,9 +103,10 @@ model Category {
 }
 
 model Cart {
-    id      String    @id @default(cuid())
-    amount  Int
-    Product Product[]
+    id       String    @id @default(cuid())
+    amount   Int
+    product  Product[]
+    quantity Int
 
     userId String @unique
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

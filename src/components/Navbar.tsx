@@ -34,8 +34,12 @@ function Navbar() {
           {sessionData ? (
             <div className="flex flex-row">
               <div className="mr-2">
-                <BsCart2 size={40} />
+                <BsCart2 className="text-amber-500" size={40} />
+                <div className="relative -right-6 bottom-3.5 h-6 w-6 items-center justify-center rounded-full bg-gray-700 text-center">
+                  <span className="font-bold">0</span>
+                </div>
               </div>
+
               <div className="dropdown avatar px-4">
                 <div tabIndex={0} className="h-12 w-12 rounded-full ring">
                   <Image

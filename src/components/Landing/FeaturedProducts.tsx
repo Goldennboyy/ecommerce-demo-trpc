@@ -4,16 +4,16 @@ import myImage from "../../../public/images/testcardimg.webp";
 import Image from "next/image";
 
 function FeaturedProducts() {
-  const trpc = api.useContext();
+  //const trpc = api.useContext();
 
   const { data: products, isLoading } =
     api.product.getFeaturedProduct.useQuery();
 
+  const addProductToCart = api.product.addToCart.useMutation();
+
   if (isLoading) {
     <div>...Loading</div>;
   }
-
-  console.log(products);
 
   return (
     <div className="mt-20 w-full px-8">
@@ -23,8 +23,8 @@ function FeaturedProducts() {
 
       <div className="flex flex-row flex-wrap gap-8">
         {products
-          ?.slice(0, 10)
-          .map(({ name, image, price, stock: { noStock } }, index) => {
+          ?.slice(0, 12)
+          .map(({ name, id, image, price, stock: { noStock } }, index) => {
             return (
               <div
                 key={index}
@@ -32,6 +32,7 @@ function FeaturedProducts() {
               >
                 <figure className="w-full">
                   <Image
+                    priority={true}
                     src={image ? image : myImage}
                     alt="product"
                     width={250}
@@ -43,12 +44,17 @@ function FeaturedProducts() {
                     {name}
                   </h2>
                   <p className="font-semibolds text-2xl">{price}€</p>
-                  <p>{noStock > 0 ? "In stock" : "No stock"}</p>
+                  <p className="text-md font-bold">
+                    {noStock > 0 ? "In stock" : "No stock"}
+                  </p>
                   <div className=" card-actions justify-center">
                     <button
                       type="button"
+                      onClick={() =>
+                        void addProductToCart.mutateAsync({ productId: id })
+                      }
                       disabled={noStock <= 0}
-                      className="btn bg-amber-500 text-white"
+                      className="btn bg-amber-500 font-bold text-white"
                     >
                       Add to cart
                     </button>

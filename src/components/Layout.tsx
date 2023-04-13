@@ -19,7 +19,7 @@ function Layout({ children, page }: rootLayoutProps) {
       <main>
         <Navbar />
         <div>{children}</div>
-        {/* <Footer /> */}
+        <Footer />
       </main>
     </>
   );
