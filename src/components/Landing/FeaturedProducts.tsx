@@ -4,12 +4,17 @@ import myImage from "../../../public/images/testcardimg.webp";
 import Image from "next/image";
 
 function FeaturedProducts() {
-  //const trpc = api.useContext();
+  const trpc = api.useContext();
 
   const { data: products, isLoading } =
     api.product.getFeaturedProduct.useQuery();
 
-  const addProductToCart = api.product.addToCart.useMutation();
+  // optimistic update
+  const addProductToCart = api.product.addToCart.useMutation({
+    onSettled: async () => {
+      await trpc.product.getFeaturedProduct.invalidate();
+    },
+  });
 
   if (isLoading) {
     <div>...Loading</div>;
@@ -23,7 +28,7 @@ function FeaturedProducts() {
 
       <div className="flex flex-row flex-wrap gap-8">
         {products
-          ?.slice(0, 12)
+          ?.slice(0, 15)
           .map(({ name, id, image, price, stock: { noStock } }, index) => {
             return (
               <div
@@ -39,7 +44,7 @@ function FeaturedProducts() {
                     height={200}
                   />
                 </figure>
-                <div className="card-body ">
+                <div className="card-body">
                   <h2 className="card-title text-2xl font-bold shadow-sm">
                     {name}
                   </h2>

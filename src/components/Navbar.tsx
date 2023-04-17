@@ -2,31 +2,35 @@ import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { BsCart2 } from "react-icons/bs";
+import { api } from "@/utils/api";
+import Link from "next/link";
 
 function Navbar() {
   const { data: sessionData } = useSession();
 
+  const { data: cart } = api.cart.countCart.useQuery();
+
   return (
     <div>
-      <div className="navbar border-b-white">
+      <div className="navbar border-b border-b-black">
         <div className="navbar-start">
-          <a
-            href=""
+          <Link
+            href="/"
             className="btn-ghost btn text-xl normal-case text-amber-400"
           >
             E-commerce Demo
-          </a>
+          </Link>
         </div>
         <div className="navbar-center hidden  lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li className="text-amber-400">
-              <a href="">Home</a>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <a>Categories</a>
+              <Link href="/categories">Categories</Link>
             </li>
             <li>
-              <a>Products</a>
+              <Link href={"/products"}>Products</Link>
             </li>
           </ul>
         </div>
@@ -36,7 +40,9 @@ function Navbar() {
               <div className="mr-2">
                 <BsCart2 className="text-amber-500" size={40} />
                 <div className="relative -right-6 bottom-3.5 h-6 w-6 items-center justify-center rounded-full bg-gray-700 text-center">
-                  <span className="font-bold">0</span>
+                  <span className="font-bold text-amber-500">
+                    {cart?.quantity}
+                  </span>
                 </div>
               </div>
 
