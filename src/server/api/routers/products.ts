@@ -9,14 +9,6 @@ import { type Product, type Stock } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
 export const productRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-
   getFeaturedProduct: publicProcedure.query(async ({ ctx }) => {
     const product = await ctx.prisma.product.findMany({
       where: {

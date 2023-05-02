@@ -1,10 +1,10 @@
-import Category from "@/components/Categories/Category";
+import Category from "@/components/categories/Category";
 import Layout from "@/components/Layout";
 import React from "react";
 
 function categories() {
   return (
-    <Layout page="categories">
+    <Layout page="Categories">
       <Category />
     </Layout>
   );

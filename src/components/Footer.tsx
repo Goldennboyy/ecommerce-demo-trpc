@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
 function Footer() {
   return (
-    <footer className="flex h-20 w-full flex-row items-center justify-center gap-3">
+    <footer className="relative bottom-0 flex h-20 w-full flex-row items-center justify-center gap-3">
       <div className="flex gap-2">
         <a href="https://github.com/Goldennboyy">
           {" "}
