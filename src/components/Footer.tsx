@@ -16,7 +16,7 @@ function Footer() {
       <div>
         <span className="text-slate-100">
           {" "}
-          Built with ❤️ by Emmanuel Ezeagwula with T3 stack{" "}
+          Designed & Built with ❤️ by Emmanuel Ezeagwula with T3 stack{" "}
         </span>
       </div>
     </footer>

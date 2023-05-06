@@ -9,6 +9,15 @@ import { type Product, type Stock } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
 export const productRouter = createTRPCRouter({
+  getAllProducts: publicProcedure.query(async ({ ctx }) => {
+    const products = await ctx.prisma.product.findMany({
+      include: {
+        stock: true,
+      },
+    });
+    return products;
+  }),
+
   getFeaturedProduct: publicProcedure.query(async ({ ctx }) => {
     const product = await ctx.prisma.product.findMany({
       where: {

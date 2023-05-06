@@ -41,7 +41,7 @@ function Navbar() {
                 <BsCart2 className="text-amber-500" size={40} />
                 <div className="relative -right-6 bottom-3.5 h-6 w-6 items-center justify-center rounded-full bg-gray-700 text-center">
                   <span className="font-bold text-amber-500">
-                    {cart?.quantity}
+                    {cart?.quantity || 0}
                   </span>
                 </div>
               </div>
