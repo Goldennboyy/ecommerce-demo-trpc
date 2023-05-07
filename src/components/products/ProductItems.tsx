@@ -3,7 +3,6 @@ import React from "react";
 import LoadingSpinner from "../LoadingSpinner";
 import CartItem from "../CartItem";
 function ProductItems() {
-  const trpc = api.useContext();
   const { data: products, isLoading } = api.product.getAllProducts.useQuery();
 
   if (isLoading) {

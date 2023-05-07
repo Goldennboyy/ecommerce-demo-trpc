@@ -33,7 +33,7 @@ function CartItem({ product }: Props) {
         <h2 className="card-title text-2xl font-bold shadow-sm hover:text-amber-500">
           <Link href={"/products/" + product.id}>{product.name}</Link>
         </h2>
-        <p className="font-semibolds text-2xl">{product.price}€</p>
+        <p className="text-2xl font-semibold">{product.price}€</p>
         <p className="text-md font-bold">
           {product.stock.noStock > 0 ? "In stock" : "No stock"}
         </p>
