@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import myImage from "../../public/images/testcardimg.webp";
 import { api } from "@/utils/api";
+import Link from "next/link";
 
 interface Props {
   product: Product & { stock: Stock };
@@ -29,8 +30,8 @@ function CartItem({ product }: Props) {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title text-2xl font-bold shadow-sm">
-          {product.name}
+        <h2 className="card-title text-2xl font-bold shadow-sm hover:text-amber-500">
+          <Link href={"/products/" + product.id}>{product.name}</Link>
         </h2>
         <p className="font-semibolds text-2xl">{product.price}€</p>
         <p className="text-md font-bold">

@@ -12,18 +12,17 @@ export default function CategoryProducts() {
 
   const { id } = router.query;
 
-  const { data: categoryProducts } = api.category.byCategorygetproduct.useQuery(
-    {
+  const { data: categoryProducts, isLoading } =
+    api.category.byCategorygetproduct.useQuery({
       categoryid: id as string,
-    }
-  );
+    });
 
-  const { data: category, isLoading } = api.category.getName.useQuery({
+  const { data: category } = api.category.getName.useQuery({
     categoryid: id as string,
   });
 
   if (isLoading) {
-    <LoadingSpinner />;
+    return <LoadingSpinner />;
   }
 
   return (

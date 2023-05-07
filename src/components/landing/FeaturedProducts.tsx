@@ -8,7 +8,7 @@ function FeaturedProducts() {
     api.product.getFeaturedProduct.useQuery();
 
   if (isLoading) {
-    <LoadingSpinner />;
+    return <LoadingSpinner />;
   }
 
   return (

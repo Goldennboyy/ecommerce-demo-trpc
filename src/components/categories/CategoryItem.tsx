@@ -3,9 +3,14 @@ import Image from "next/image";
 import React from "react";
 import myImage from "../../../public/images/testcardimg.webp";
 import Link from "next/link";
+import LoadingSpinner from "../LoadingSpinner";
 
 function CategoryItem() {
-  const { data: categories } = api.category.getCategories.useQuery();
+  const { data: categories, isLoading } = api.category.getCategories.useQuery();
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="mx-auto grid grid-cols-1 items-center justify-center gap-4 p-3  md:grid-cols-2">
