@@ -16,7 +16,7 @@ function FeaturedProducts() {
       <h1 className="h-8 w-fit rounded-md bg-zinc-700 px-4 py-1 font-semibold drop-shadow-sm">
         Featured Products
       </h1>
-      <div className="flex flex-row flex-wrap gap-8">
+      <div className="flex flex-wrap items-start justify-start gap-4">
         {products?.slice(0, 12).map((product, index) => {
           return <CartItem key={index} product={product} />;
         })}

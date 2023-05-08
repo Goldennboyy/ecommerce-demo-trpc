@@ -5,7 +5,7 @@ function LoadingSpinner() {
     <div role="status" className="flex w-full justify-center">
       <svg
         aria-hidden="true"
-        className="fixed left-1/2 top-1/2 mr-2 flex h-8 w-8 animate-spin items-center justify-center fill-amber-500 text-gray-200"
+        className="absolute left-1/2 top-1/2 mr-2 flex h-8 w-8 animate-spin items-center justify-center fill-amber-500 text-gray-200"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ function LoadingSpinner() {
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
+      <span className="sr-only text-amber-500">Loading...</span>
     </div>
   );
 }

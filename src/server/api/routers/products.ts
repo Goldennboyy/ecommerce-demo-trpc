@@ -18,6 +18,32 @@ export const productRouter = createTRPCRouter({
     return products;
   }),
 
+  getNameProduct: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+      const product = await ctx.prisma.product.findFirst({
+        where: { id: id },
+        select: {
+          name: true,
+        },
+      });
+      return product;
+    }),
+
+  getProduct: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { id } = input;
+      const product = await ctx.prisma.product.findFirst({
+        where: {
+          id: id,
+        },
+        include: { stock: true },
+      });
+      return product;
+    }),
+
   getFeaturedProduct: publicProcedure.query(async ({ ctx }) => {
     const product = await ctx.prisma.product.findMany({
       where: {
@@ -35,10 +61,11 @@ export const productRouter = createTRPCRouter({
     .input(
       z.object({
         productId: z.string(),
+        quantity: z.number().positive(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { productId } = input;
+      const { productId, quantity } = input;
       const userId = ctx.session.user.id;
 
       // get the product from the product id
@@ -59,10 +86,11 @@ export const productRouter = createTRPCRouter({
         });
       }
 
-      if (product.stock.noStock <= 0) {
+      // Check if the product is in stock
+      if (product.stock.noStock < quantity) {
         throw new TRPCError({
           code: "FORBIDDEN",
-          message: "the product is out of stock",
+          message: "The product is out of stock",
         });
       }
 
@@ -71,8 +99,8 @@ export const productRouter = createTRPCRouter({
           userId: userId,
         },
         create: {
-          amount: product.price,
-          quantity: 1,
+          amount: product.price * quantity,
+          quantity: quantity,
           product: {
             connect: {
               id: productId,
@@ -86,10 +114,10 @@ export const productRouter = createTRPCRouter({
         },
         update: {
           amount: {
-            increment: product.price,
+            increment: product.price * quantity,
           },
           quantity: {
-            increment: 1,
+            increment: quantity,
           },
         },
       });
@@ -100,7 +128,7 @@ export const productRouter = createTRPCRouter({
           id: product.stockId,
         },
         data: {
-          noStock: product.stock.noStock - 1,
+          noStock: product.stock.noStock - quantity, // decrement the stock with quantity or 1
         },
       });
 

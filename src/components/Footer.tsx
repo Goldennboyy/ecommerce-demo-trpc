@@ -3,7 +3,7 @@ import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
 function Footer() {
   return (
     <footer className="relative bottom-0 flex h-20 w-full flex-row items-center justify-center gap-3">
-      <div className="flex gap-2">
+      <div className="flex flex-row gap-2">
         <a href="https://github.com/Goldennboyy">
           {" "}
           <AiOutlineGithub size={25} />
@@ -16,7 +16,7 @@ function Footer() {
       <div>
         <span className="text-slate-100">
           {" "}
-          Designed & Built with ❤️ by Emmanuel Ezeagwula with T3 stack{" "}
+          Built with ❤️ by Emmanuel Ezeagwula
         </span>
       </div>
     </footer>

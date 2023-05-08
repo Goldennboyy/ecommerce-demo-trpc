@@ -11,7 +11,7 @@ function ProductItems() {
 
   return (
     <div className="mb-8 p-6">
-      <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-4">
         {products?.map((product, index) => {
           return <CartItem key={index} product={product} />;
         })}
